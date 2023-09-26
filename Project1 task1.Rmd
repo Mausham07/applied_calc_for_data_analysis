@@ -1,0 +1,37 @@
+---
+title: "Project1-Background and Data"
+author: "Mausham Bista"
+date: "2023-09-19"
+output: html_document
+---
+
+
+In this project, we want to understand how an LED light bulb behaves over time, specially one that's created with a seed value of 6943, as this was assigned to me. To do this, we are using a special library called 'data4led' that gives us data about LED bulbs.
+```{r}
+library(data4led)
+```
+
+We start by loading the library and creating a dataset of LED bulb with given seed. We save this data in variable called 'bulb'. To get sense of what the data looks like, we look at the first few rows.
+
+```{r}
+bulb <- led_bulb(1,seed = 6943)
+# head(bulb)
+```
+
+To visually explore the LED bulbs percentage intensity over time, we create a scatter plot. This plot represent:
+* The x-axis in hours.
+* The y-axis as a percentage intensity.
+
+We narrow the Y-axis range to focus on change in brightness by setting between 99% and 103%.
+```{r}
+x <- bulb$hours
+y <- bulb$percent_intensity
+
+
+plot(x, y, ylim=c(99, 103), pch= 20, main = 'Seed 6943', xlab='Hours', ylab = 'Intensity (%)' )
+```
+
+As per the plot, the first measurement was taken when time was 0 hours and last measurement was taken after 5000 hours.
+
+
+
