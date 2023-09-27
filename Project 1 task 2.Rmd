@@ -1,0 +1,164 @@
+---
+title: "Project 1- task 2"
+author: "Mausham Bista"
+date: "2023-09-26"
+output: html_document
+---
+
+
+In this project we would like to understand the general model $\ f_{4}(x;a_0,a_1,a_2) = a_0 + a_1x + a_2ln(0.005x+1)$ where x >= 0 and $\ f_{5}(x;a_0,a_1,a_2) = (a_0 + a_1x)e^{-a_2x}$ where x >= 0. How does the behavior of this model will change when we change the parameters $\ a_0, a_1, a_2$?
+
+Upon exploring the function f4, I find the parameter a0 shifts the graph vertically. For the parameter a1, when the value is far from 0 it is more steeper and when it is near to 0 it has small peaks. For the last parameter a2 when the value is near to 0 it steeps more making high peaks, when it is far from 0 it has less steep and make small peaks with big width and inverts vertically.
+
+Upon exploring the function f5, I find the parameter a0 stretch the graph vertically. The change of parameter a1 mirrors the graph or invert the graph vertically. When the a1 is far from to 0 it steeps more and have low valley than when it is near to 0. For the a2, the change of value mirrors the graph or invert the graph horizontally. In a2, when the value is near to zero the graph changes rapidly than when the value is far from zero.
+
+For the first two figure we will be exploring the function $\ f_4$. 
+
+In this figure, the parameters we will assign are below.
+
+On the left $\ a_0 = 77, a_1 = 0.006, a_2 = 9, f_4(x) = 77 + 0.006x + 9ln(0.005x+1)$ with x>=0.
+
+On the right $\ a_0 = 155, a_1 = 0.006, a_2 = 9, f_4(x) = 155 + 0.006x + 9ln(0.005x+1)$ with x>=0.
+
+This below generates x-values from -200 to 3500 with a 5-unit increment. It defines a function 'f' using parameters 'a0,' 'a1,' and 'a2' to calculate 'y1' and 'y2.' The code sets up a 1x2 grid for plotting, creates line plots of x vs. y1 and x vs. y2 with dashed reference lines, and adds the title "Figure 1." This visualizes how changing parameters affects the functions.
+
+```{r}
+x <- seq(-200, 2000, 5)
+
+f <- function(x, a0, a1, a2){
+  a0 + (a1*x) + (a2*log10(0.005*x +1))
+}
+
+y1 <- f(x, 77, 0.006, 9)
+y2 <- f(x, 155, 0.006, 9)
+
+par(mfrow=c(1,2), mar=c(5, 5, 0.5, 0.25),oma=c(0,0,2,0))
+plot(x, y1, ylim=c(0, 150), type ="l", xlab = "x", ylab = "f(x)")
+abline(h=0, lty = 3, col='gray')
+abline(v=0, lty = 3, col = 'gray')
+plot(x, y2, ylim=c(0, 200), type ="l", xlab = "x", ylab="f(x)")
+abline(h=0, lty = 3, col='gray')
+abline(v=0, lty=3, col='gray')
+mtext("figure 1", outer= TRUE)
+```
+
+In the figure we can see the y-intercept around x = 77 in left and y-intercept around x = 155 in right. From this we can see changing value of a0 from 77 to 155 shifts the graph vertically up.
+
+In the next figure parameters value are here below.
+On the left $\ a_0 = 80, a_2 = -9$. The value of $\ a_1 $ is 0.006 for the red curve and 0.012 for the green curve.
+
+$\ a_0 = 80, a_1 = 0.006, a_2 = -9, f_4(x) = 80 + 0.006x - 9ln(0.005x+1)$ with x>=0 (red curve, left plot)
+
+ $\ a_0 = 80, a_1 = 0.012, a_2 = -9, f_4(x) = 80 + 0.012x - 9ln(0.005x+1)$ with x>=0. (green curve, left plot)
+
+On the right $\ a_0 = 80, a_2 = 9$. The value of $\ a_1 $ is -0.006 for the red curve and -0.012 for the green curve.
+
+$\ a_0 = 80, a_1 = -0.006, a_2 = 9, f_4(x) = 80 - 0.006x + 9ln(0.005x+1)$ with x>=0 (red curve, right plot)
+
+ $\ a_0 = 80, a_1 = -0.012, a_2 = 9, f_4(x) = 80 - 0.012x + 9ln(0.005x+1)$ with x>=0. (green curve, right plot)
+ 
+This below defines a function f(x, a0, a1, a2) and generates four sets of y-values based on this function with different parameter combinations. These y-values are plotted in a figure with two subplots, each showcasing two sets of y-values against the x-values. The first subplot emphasizes positive parameter values, while the second emphasizes negative ones. The plots include axis labels, and the figure is titled "figure 2." This code serves to visualize the impact of varying parameters on the shape of the f(x) function.
+```{r}
+x <- seq(-200, 2000, 5)
+
+f <- function(x, a0, a1, a2){
+  a0 + (a1*x) + (a2*log10(0.005*x +1))
+}
+
+y1 <- f(x, 80, 0.006, -9)
+y2 <- f(x, 80, 0.012, -9)
+
+y3 <- f(x, 80, -0.006, 9)
+y4 <- f(x, 80, -0.012, 9)
+
+par(mfrow=c(1,2), mar=c(5, 5, 0.5, 0.25),oma=c(0,0,2,0))
+plot(x, y1, ylim=c(0, 150), type ="l", xlab = "x", ylab = "f(x)", col ='red')
+lines(x, y2, col ='green')
+abline(h=0, lty = 3, col='gray')
+abline(v=0, lty = 3, col = 'gray')
+plot(x, y3, ylim=c(0, 150), type ="l", xlab = "x", ylab="f(x)", col = 'red')
+lines(x, y4, col ='green')
+abline(h=0, lty = 3, col='gray')
+abline(v=0, lty=3, col='gray')
+mtext("figure 2", outer= TRUE)
+```
+
+We can see when the value of a1 is far from zero, the more steep it become(left plot), or it decrease(right plot) or increase(left plot) faster than when the a1 is near to zero. Moreover, when the sign of a2 changes the graph inverts horizontally.
+
+
+For the figure below we will be exploring the function $\ f_5$. 
+
+In next figure, the parameters we will be using are below.
+On the left $\ a_0 = 15, a_1 = 0.06, a_2 = 0.006, f_4(x) = (15 + 0.06x)e^{-0.006x}$ with x>=0.
+
+On the right $\ a_0 = 30, a_1 = 0.06, a_2 = 0.006, f_4(x) = (30 + 0.06x)e^{-0.006x}$ with x>=0.
+
+This below defines a function f(x, a0, a1, a2) and generates two sets of y-values based on this function with varying parameter values. These y-values are then plotted in a figure with two subplots. In the first subplot, y1 represents the function f(x) with parameters a0=15, a1=0.06, and a2=0.006, while in the second subplot, y2 represents the same function with parameters a0=30, a1=0.06, and a2=0.006. Both subplots are accompanied by axis labels and include dashed gray lines to indicate the axes. The figure is titled "Figure 3." This code allows for the visual comparison of how changes in parameter values affect the shape of the exponential function f(x) over the specified range of x values.
+
+```{r}
+x <- seq(-2000, 2000, 5)
+
+f <- function(x, a0, a1, a2){
+  (a0 + a1*x)*exp(-a2*x)
+}
+
+y1 <- f(x, 15, 0.06, 0.006)
+y2 <- f(x, 30, 0.06, 0.006)
+
+par(mfrow=c(1,2), mar=c(5, 5, 0.5, 0.25),oma=c(0,0,2,0))
+plot(x, y1, ylim=c(-50, 200), type ="l", xlab = "x", ylab = "f(x)")
+abline(h=0, lty = 3, col='gray')
+abline(v=0, lty = 3, col = 'gray')
+plot(x, y2, ylim=c(-50, 200), type ="l", xlab = "x", ylab="f(x)")
+abline(h=0, lty = 3, col='gray')
+abline(v=0, lty=3, col='gray')
+mtext("Figure 3", outer= TRUE)
+```
+
+From figure we can see the vertical stretch it makes when we increase the value of a0. The more the a0, more the vertical stretch.
+
+In the next figure parameters value are here below.
+On the left $\ a_0 = 20, a_2 = -0.0006$. The value of $\ a_1 $ is 0.02 for the red curve and 0.09 for the green curve.
+
+$\ a_0 = 20, a_1 = 0.02, a_2 = -0.0006, f_5(x) = (20 + 0.02x)e^{0.0006x}$ with x>=0 (red curve, left plot)
+
+ $\  a_0 = 20, a_1 = 0.09, a_2 = -0.0006, f_5(x) = (20 + 0.09x)e^{0.0006x}$ with x>=0. (green curve, left plot)
+
+On the right $\ a_0 = 20, a_2 = 0.0006$. The value of $\ a_1 $ is -0.02 for the red curve and -0.09 for the green curve.
+
+$\  a_0 = 20, a_1 = -0.02, a_2 = -0.0006, f_5(x) = (20 -0.02x)e^{-0.0006x}$ with x>=0 (red curve, right plot)
+
+$\  a_0 = 20, a_1 = -0.09, a_2 = -0.0006, f_5(x) = (20 -0.09x)e^{-0.0006x}$ with x>=0. (green curve, right plot)
+
+
+This below defines a function f(x, a0, a1, a2) and generates four sets of y-values based on this function, each with different parameter values. These y-values are plotted in a figure with two subplots, presenting both positive and negative parameter combinations. In the first subplot, y1 and y2 depict the function f(x) with parameters a0=20, a1=0.02, and a2=-0.0006, and a1=0.09, respectively. In the second subplot, y3 and y4 represent the same function with parameters a0=20, a1=-0.02, and a2=0.0006, and a1=-0.09, respectively. Both subplots feature axis labels and include dashed gray lines to denote the axes. The figure is titled "Figure 4." This code facilitates the visual comparison of how variations in parameter values impact the behavior of the exponential function f(x) over the given range of x values.
+```{r}
+x <- seq(-2000, 2000, 5)
+
+f <- function(x, a0, a1, a2){
+  (a0 + a1*x)*exp(-a2*x)
+}
+
+y1 <- f(x, 20, 0.02, -0.0006)
+y2 <- f(x, 20, 0.09, -0.0006)
+
+y3 <- f(x, 20, -0.02, 0.0006)
+y4 <- f(x, 20, -0.09, 0.0006)
+
+par(mfrow=c(1,2), mar=c(5, 5, 0.5, 0.25),oma=c(0,0,2,0))
+plot(x, y1, ylim=c(-50, 200), type ="l", xlab = "x", ylab = "f(x)", col ='red')
+lines(x, y2, col ="green")
+abline(h=0, lty = 3, col='gray')
+abline(v=0, lty = 3, col = 'gray')
+plot(x, y3, ylim=c(-50, 200), type ="l", xlab = "x", ylab="f(x)", col = "red")
+lines(x, y4, col ="green")
+abline(h=0, lty = 3, col='gray')
+abline(v=0, lty=3, col='gray')
+mtext("Figure 4", outer= TRUE)
+```
+
+From figure we can see that when the value of a1 is near to zero it steeps slowly and makes higher valley (left plot). The opening width near to 0 (right plot) is also bigger. Moreover, when we switch the sign of a2 the graph inverts horizontally.
+
+
+In this analysis, we explored the behavior of two mathematical models, f4(x;a0, a1, a2) and f5(x;a0, a1, a2), by examining how changes in their parameters (a0, a1 and a2), and impact their graphical representations. For,f4 we observed that a0 shifts the graph vertically, a1 controls the slope and peak characteristics, and 
+a2 alters the steepness and inversion of the graph. In the case of f5, a0 stretches the graph vertically, a1 mirrors or inverts the graph vertically while influencing its steepness, and a2 mirrors or inverts the graph horizontally while affecting the rate of change. These visualizations provide valuable insights into how parameter variations influence the behavior of these mathematical models.
